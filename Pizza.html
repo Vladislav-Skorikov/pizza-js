@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Task 1</title>
+    <style>
+        form {
+            width: 600px;
+            margin: auto;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            // Проверка на введенные пользователем данные, используя пользовательские атрибуты
+            for (el in document.pizza.elements) {
+                var currentEl = document.pizza.elements[el];
+                if (currentEl.type === "text" || currentEl.type === "tel") {
+                    currentEl.onchange = function () {
+                        if (this.pattern) {
+                            if (new RegExp(this.pattern).test(this.value)) {
+                                this.style.border = "3px solid lightgreen";
+                            }
+                            else {
+                                this.style.border = "3px solid red";
+                            }
+                        }
+                    }
+                }
+            }
+            var
+                price = 0,
+                div = document.getElementById("total");
+            // Вывод данных по цене пиццы
+            for (el in document.pizza.elements) {
+                var currentEl = document.pizza[el];
+                if (currentEl.name == "size" || currentEl.name == "ingr") {
+                    currentEl.onchange = function () {
+                        if (this.value == "small") {
+                            price = 25;
+                        }
+                        else if (this.value == "medium") {
+                            price = 50;
+                        }
+
+                        else if (this.value == "big") {
+                            price = 75;
+                        }
+                        else if (this.value == "mashrooms") {
+                            if (this.checked == false) {
+                                price -= 5;
+                            }
+                            else {
+                                price += 5;
+                            }
+                        }
+                        else if (this.value == "bekon") {
+                            if (this.checked == false) {
+                                price -= 10;
+                            }
+                            else {
+                                price += 10;
+                            }
+                        }
+                        else if (this.value == "tomatoes") {
+                            if (this.checked == false) {
+                                price -= 5;
+                            }
+                            else {
+                                price += 5;
+                            }
+                        }
+                        else if (this.value == "cheese") {
+                            if (this.checked == false) {
+                                price -= 15;
+                            }
+                            else {
+                                price += 15;
+                            }
+                        }
+                        else if (this.value == "olives") {
+                            if (this.checked == false) {
+                                price -= 5;
+                            }
+                            else {
+                                price += 5;
+                            }
+
+                        }
+                        div.innerHTML = "Total price " + price + " uah";
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <form name="pizza">
+        <fieldset>
+            <legend>Заказ пиццы</legend>
+            <h3>Выберите размер пиццы</h3>
+            <input type="radio" name="size" value="small" />Small
+            <img src="итальянский-кусок-пиццы.jpg" style="width:50px" />
+            <input type="radio" name="size" value="medium" />Medium
+            <img src="итальянский-кусок-пиццы.jpg" style="width:100px" />
+            <input type="radio" name="size" value="big" />Big
+            <img src="итальянский-кусок-пиццы.jpg" style="width:200px" />
+            <h3>Ингредиенты</h3>
+            <input type="checkbox" name="ingr" value="mashrooms" /> Грибы
+            <input type="checkbox" name="ingr" value="bekon" /> Бекон
+            <input type="checkbox" name="ingr" value="tomatoes" /> Помидоры
+            <input type="checkbox" name="ingr" value="cheese" /> Сыр
+            <input type="checkbox" name="ingr" value="olives" /> Оливки
+            <h3>Информация о покупателе</h3>
+            <input type="text" class="input" name="name" placeholder="Name" required pattern="[A-Za-zА-Яа-яЁё]+" />
+            <input type="tel" class="input" name="tel" placeholder="Telephone" required pattern="\+38\s?\(?\d{3}\)?\s?\d{3}-?\d{2}-?\d{2}" />
+            <input type="text" class="input" name="address" placeholder="Address" required pattern="[A-Za-zА-Яа-яЁё0-9,.\-\s]+" />
+            <br />
+            <div id="total"></div>
+            <input type="submit" />
+        </fieldset>
+    </form>
+</body>
+</html>
